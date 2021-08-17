@@ -1,20 +1,34 @@
 
-const fs = require('fs');
+// const fs = require('fs');
 
-// runs the generating page function from page-template.js
-const generatePage = require('./src/page-template.js');
+// // runs the generating page function from page-template.js
+// const generatePage = require('./src/page-template.js');
 
-const profileDataArgs = process.argv.slice(2);
+const inquirer = require('inquirer');
+
+inquirer
+    .prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'what is your name?'
+        }
+    ])
+    .then(answers => console.log(answers));
+
+// const pageHTML = generatePage(name, github);
+
+// // const profileDataArgs = process.argv.slice(2);
 
 
-const [name, github] = profileDataArgs;
+// const [name, github] = profileDataArgs;
 
 
-    fs.writeFile('index.html', generatePage(name, github), err => {
-        if (err) throw new Error(err);
+//     fs.writeFile('index.html', pageHTML, err => {
+//         if (err) throw new Error(err);
 
-        console.log('portfolio complete!');
-    });
+//         console.log('portfolio complete!');
+//     });
 
 // const printProfileData = profileDataArr => {
 //     for (let i = 0; i < profileDataArr.length; i++) {
