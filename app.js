@@ -1,5 +1,7 @@
 
 const fs = require('fs');
+
+// runs the generating page function from page-template.js
 const generatePage = require('./src/page-template.js');
 
 const profileDataArgs = process.argv.slice(2);
