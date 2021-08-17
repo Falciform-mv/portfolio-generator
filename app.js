@@ -13,24 +13,43 @@ const promptUser = () => {
             type: 'input',
             name: 'name',
             message: 'what is your name?',
-            validate(value) {
-                if (value) {
+            validate: nameInput => {
+                if (nameInput) {
                     return true;
+                } else {
+                    return ('TELL ME')
                 }
-                return 'TELL ME';
             }
         },
         {
             type: 'input',
             name: 'github',
-            message: 'enter your github username'
+            message: 'enter your github username (required)',
+            validate: gitHubInput => {
+                if (gitHubInput) {
+                    return true;
+                } else {
+                    return ('Need username plz')
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAbout',
+            message: 'would you like to add an About section?',
+            default: true
         },
         {
             type: 'input',
             name: 'about',
-            message: 'provide some information about yourself:'
-          
-
+            message: 'provide some information about yourself:',
+            when: ({ confirmAbout }) => {
+                if (confirmAbout) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
         
     ]);
@@ -54,12 +73,26 @@ const promptProject = portfolioData => {
         {
             type:'input',
             name: 'name',
-            message: 'what is the name of your project?'
+            message: 'what is the name of your project? (required)',
+            validate: projName => {
+                if (projName) {
+                    return true;
+                } else {
+                    return "gimme a project name"
+                }
+            }
         },
         {
             type: 'input',
             name: 'description',
-            message: 'provide a description of the project (required)'
+            message: 'provide a description of the project (required)',
+            validate: projDescription => {
+                if (projDescription) {
+                    return true;
+                } else {
+                    return "need project descrition bro"
+                }
+            }
         },
         {
             type: 'checkbox',
