@@ -1,8 +1,8 @@
 
-// const fs = require('fs');
+const fs = require('fs');
 
-// // runs the generating page function from page-template.js
-// const generatePage = require('./src/page-template.js');
+// runs the generating page function from page-template.js
+const generatePage = require('./src/page-template.js');
 
 const inquirer = require('inquirer');
 
@@ -103,7 +103,14 @@ const promptProject = portfolioData => {
         {
             type:'input',
             name: 'link',
-            message: 'enter the github link to your project'
+            message: 'enter the github link to your project',
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    return "need a github link now"
+                }
+            }
         },
         {
             type: 'confirm',
@@ -132,8 +139,16 @@ const promptProject = portfolioData => {
     promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
-    });
+        const pageHTML = generatePage(portfolioData);
+
+        fs.writeFile('index.html', pageHTML, err => {
+            if (err) throw new Error(err);
+
+            console.log('page created');
+        })
+    })
+
+        
 
     
 
